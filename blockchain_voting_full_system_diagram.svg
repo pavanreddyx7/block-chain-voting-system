@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 920" width="1200" height="920" role="img" aria-labelledby="title desc">
+  <title id="title">Blockchain Voting System using Arduino Mega, NodeMCU ESP8266, Push Buttons, and LCD</title>
+  <desc id="desc">Updated system diagram with no fingerprint module. Arduino Mega reads push buttons and controls the LCD, while NodeMCU sends vote data to backend and blockchain over Wi-Fi.</desc>
+
+  <defs>
+    <style>
+      .bg { fill: #f5efe6; }
+      .title { font: 700 30px 'Segoe UI', Arial, sans-serif; fill: #1e293b; }
+      .subtitle { font: 400 15px 'Segoe UI', Arial, sans-serif; fill: #475569; }
+      .layer-label { font: 700 15px 'Segoe UI', Arial, sans-serif; fill: #7c5b35; letter-spacing: 1px; }
+      .box-title { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #102033; }
+      .box-text { font: 400 13px 'Segoe UI', Arial, sans-serif; fill: #29425d; }
+      .small { font: 400 12px 'Segoe UI', Arial, sans-serif; fill: #3f556f; }
+      .power { fill: #fde68a; stroke: #b45309; }
+      .hardware { fill: #dbeafe; stroke: #2563eb; }
+      .control { fill: #dcfce7; stroke: #15803d; }
+      .network { fill: #ede9fe; stroke: #7c3aed; }
+      .backend { fill: #fee2e2; stroke: #dc2626; }
+      .chain { fill: #e0f2fe; stroke: #0284c7; }
+      .result { fill: #fef3c7; stroke: #ca8a04; }
+      .node { stroke-width: 2.2; rx: 16; ry: 16; }
+      .line { stroke: #475569; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .data { stroke: #0f766e; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .wifi { stroke: #7c3aed; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .dash { stroke-dasharray: 8 8; }
+      .divider { stroke: #d6c5ad; stroke-width: 1.5; stroke-dasharray: 6 8; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569" />
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="920" rx="24"/>
+
+  <text x="600" y="52" text-anchor="middle" class="title">Blockchain Voting Project</text>
+  <text x="600" y="82" text-anchor="middle" class="subtitle">Arduino Mega + ESP8266 NodeMCU + Push Buttons + 16x2 I2C LCD</text>
+
+  <line x1="70" y1="180" x2="1130" y2="180" class="divider"/>
+  <line x1="70" y1="390" x2="1130" y2="390" class="divider"/>
+  <line x1="70" y1="600" x2="1130" y2="600" class="divider"/>
+  <line x1="70" y1="780" x2="1130" y2="780" class="divider"/>
+
+  <text x="80" y="140" class="layer-label">HARDWARE LAYER</text>
+  <text x="80" y="350" class="layer-label">FIRMWARE LAYER</text>
+  <text x="80" y="560" class="layer-label">NETWORK AND CLOUD</text>
+  <text x="80" y="740" class="layer-label">BLOCKCHAIN LAYER</text>
+  <text x="80" y="875" class="layer-label">OUTPUT</text>
+
+  <rect x="90" y="210" width="150" height="90" class="node power"/>
+  <text x="165" y="245" text-anchor="middle" class="box-title">5V Supply</text>
+  <text x="165" y="270" text-anchor="middle" class="box-text">USB adapter / battery</text>
+  <text x="165" y="290" text-anchor="middle" class="small">Common GND for all modules</text>
+
+  <rect x="280" y="210" width="210" height="90" class="node hardware"/>
+  <text x="385" y="245" text-anchor="middle" class="box-title">Push Buttons</text>
+  <text x="385" y="270" text-anchor="middle" class="box-text">Vote A, Vote B, Vote C, Confirm</text>
+  <text x="385" y="290" text-anchor="middle" class="small">Digital inputs to Arduino Mega</text>
+
+  <rect x="520" y="210" width="210" height="90" class="node hardware"/>
+  <text x="625" y="245" text-anchor="middle" class="box-title">16x2 I2C LCD</text>
+  <text x="625" y="270" text-anchor="middle" class="box-text">Shows candidate and vote status</text>
+  <text x="625" y="290" text-anchor="middle" class="small">SDA, SCL, VCC, GND</text>
+
+  <rect x="760" y="210" width="180" height="90" class="node control"/>
+  <text x="850" y="245" text-anchor="middle" class="box-title">Arduino Mega</text>
+  <text x="850" y="270" text-anchor="middle" class="box-text">Reads buttons and controls LCD</text>
+  <text x="850" y="290" text-anchor="middle" class="small">Main voting logic</text>
+
+  <rect x="970" y="210" width="150" height="90" class="node network"/>
+  <text x="1045" y="245" text-anchor="middle" class="box-title">NodeMCU</text>
+  <text x="1045" y="270" text-anchor="middle" class="box-text">ESP8266 Wi-Fi bridge</text>
+  <text x="1045" y="290" text-anchor="middle" class="small">Serial link with Mega</text>
+
+  <path d="M240 255 L280 255" class="line"/>
+  <path d="M490 255 L520 255" class="line"/>
+  <path d="M730 255 L760 255" class="line"/>
+  <path d="M940 255 L970 255" class="line"/>
+
+  <rect x="140" y="430" width="250" height="110" class="node control"/>
+  <text x="265" y="465" text-anchor="middle" class="box-title">Mega Firmware</text>
+  <text x="265" y="490" text-anchor="middle" class="box-text">Debounce push buttons</text>
+  <text x="265" y="512" text-anchor="middle" class="box-text">Show menu and selected candidate on LCD</text>
+  <text x="265" y="534" text-anchor="middle" class="small">Send confirmed vote to NodeMCU using Serial1</text>
+
+  <rect x="470" y="430" width="250" height="110" class="node network"/>
+  <text x="595" y="465" text-anchor="middle" class="box-title">NodeMCU Firmware</text>
+  <text x="595" y="490" text-anchor="middle" class="box-text">Connect to Wi-Fi hotspot/router</text>
+  <text x="595" y="512" text-anchor="middle" class="box-text">Send HTTP request with voter and candidate data</text>
+  <text x="595" y="534" text-anchor="middle" class="small">Return SUCCESS or FAIL to Mega</text>
+
+  <rect x="800" y="430" width="250" height="110" class="node result"/>
+  <text x="925" y="465" text-anchor="middle" class="box-title">LCD Messages</text>
+  <text x="925" y="490" text-anchor="middle" class="box-text">Ready to vote</text>
+  <text x="925" y="512" text-anchor="middle" class="box-text">Candidate selected / Sending vote / Vote stored</text>
+  <text x="925" y="534" text-anchor="middle" class="small">Simple user feedback on booth unit</text>
+
+  <path d="M850 300 L850 430" class="line"/>
+  <path d="M1045 300 L595 430" class="wifi"/>
+  <path d="M625 300 L925 430" class="data"/>
+  <path d="M385 300 L265 430" class="data"/>
+
+  <rect x="180" y="635" width="260" height="100" class="node network"/>
+  <text x="310" y="670" text-anchor="middle" class="box-title">Wi-Fi Router / Hotspot</text>
+  <text x="310" y="695" text-anchor="middle" class="box-text">NodeMCU joins local network</text>
+  <text x="310" y="717" text-anchor="middle" class="small">Internet access for vote upload</text>
+
+  <rect x="500" y="635" width="290" height="100" class="node backend"/>
+  <text x="645" y="670" text-anchor="middle" class="box-title">Backend Server</text>
+  <text x="645" y="695" text-anchor="middle" class="box-text">Validate voter ID and prevent duplicate votes</text>
+  <text x="645" y="717" text-anchor="middle" class="small">API example: Node.js / Express</text>
+
+  <rect x="840" y="635" width="220" height="100" class="node backend"/>
+  <text x="950" y="670" text-anchor="middle" class="box-title">Database / Log</text>
+  <text x="950" y="695" text-anchor="middle" class="box-text">Store voter status and audit log</text>
+  <text x="950" y="717" text-anchor="middle" class="small">Optional local or cloud database</text>
+
+  <path d="M595 540 L310 635" class="wifi"/>
+  <path d="M440 685 L500 685" class="wifi"/>
+  <path d="M790 685 L840 685" class="line"/>
+
+  <rect x="260" y="805" width="290" height="90" class="node chain"/>
+  <text x="405" y="840" text-anchor="middle" class="box-title">Smart Contract</text>
+  <text x="405" y="865" text-anchor="middle" class="box-text">Records vote transaction on blockchain</text>
+
+  <rect x="620" y="805" width="290" height="90" class="node chain"/>
+  <text x="765" y="840" text-anchor="middle" class="box-title">Ethereum Testnet</text>
+  <text x="765" y="865" text-anchor="middle" class="box-text">Sepolia or Ganache for demo project</text>
+
+  <path d="M645 735 L405 805" class="line"/>
+  <path d="M550 850 L620 850" class="line"/>
+
+  <path d="M925 540 L925 840" class="line dash"/>
+  <text x="945" y="860" class="small">Result can also be shown in web dashboard</text>
+
+  <text x="95" y="840" class="small">Vote flow:</text>
+  <text x="95" y="862" class="small">Push button -> Mega -> NodeMCU -> Backend -> Blockchain -> Success on LCD</text>
+</svg>

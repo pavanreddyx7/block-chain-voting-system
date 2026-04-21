@@ -1,0 +1,7 @@
+{
+  "boothId": "BOOTH-01",
+  "voteId": "REQ-45120-1",
+  "candidate": "A",
+  "device": "NODEMCU-01",
+  "timestamp": "2026-04-15T12:00:00Z"
+}

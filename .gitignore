@@ -1,0 +1,34 @@
+# Node.js dependencies
+node_modules/
+
+# Mac / OS generated files
+.DS_Store
+*.log
+
+# Windows generated files
+Thumbs.db
+Desktop.ini
+
+# Arduino generated files
+build/
+*.bin
+*.elf
+*.hex
+*.uf2
+*.map
+
+# Hardhat/Smart Contract generated files (inside software_backend)
+software_backend/artifacts/
+software_backend/cache/
+software_backend/coverage/
+software_backend/coverage.json
+software_backend/node_modules/
+software_backend/typechain/
+software_backend/typechain-types/
+
+# Editor/IDE directories
+.vscode/
+.idea/
+
+# Environment variables
+.env

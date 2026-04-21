@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voting Admin Panel</title>
+  <style>
+    :root {
+      --bg: #f4ecdf;
+      --panel: #fffaf2;
+      --line: #d8c7ab;
+      --ink: #1f2937;
+      --muted: #667085;
+      --accent: #0f766e;
+      --accent-soft: #d7f5ef;
+      --warn: #92400e;
+      --warn-soft: #ffedd5;
+      --danger: #b91c1c;
+      --danger-soft: #fee2e2;
+      --blue: #1d4ed8;
+      --blue-soft: #dbeafe;
+      --shadow: 0 18px 36px rgba(56, 38, 12, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: radial-gradient(circle at top, #fff8ee 0, #f4ecdf 48%, #ebdecb 100%);
+      color: var(--ink);
+    }
+    .wrap {
+      width: min(1160px, calc(100% - 32px));
+      margin: 28px auto 44px;
+    }
+    .hero, .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+    .hero {
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 5vw, 44px);
+    }
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 760px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+    }
+    .card {
+      padding: 22px;
+    }
+    .span-4 { grid-column: span 4; }
+    .span-5 { grid-column: span 5; }
+    .span-7 { grid-column: span 7; }
+    .span-8 { grid-column: span 8; }
+    .span-12 { grid-column: span 12; }
+    h2 {
+      margin: 0 0 14px;
+      font-size: 22px;
+    }
+    .stat {
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    .stat-num {
+      font-size: 34px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .muted {
+      color: var(--muted);
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    button {
+      border: none;
+      border-radius: 14px;
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+      background: var(--accent);
+      box-shadow: 0 8px 20px rgba(15, 118, 110, 0.22);
+    }
+    button.secondary {
+      background: var(--blue);
+      box-shadow: 0 8px 20px rgba(29, 78, 216, 0.22);
+    }
+    button.warn {
+      background: var(--warn);
+      box-shadow: 0 8px 20px rgba(146, 64, 14, 0.18);
+    }
+    input, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font: inherit;
+      background: #fff;
+      color: var(--ink);
+    }
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+    .bars {
+      display: grid;
+      gap: 14px;
+    }
+    .bar-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+    }
+    .bar-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .track {
+      height: 14px;
+      background: #efe6d8;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #0f766e, #22c55e);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      text-align: left;
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+    th {
+      color: var(--muted);
+      font-size: 13px;
+      background: #fff;
+    }
+    .status {
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 14px;
+      margin-top: 12px;
+      display: none;
+    }
+    .success {
+      display: block;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .error {
+      display: block;
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+    .publish-box {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+    }
+    .link-box {
+      margin-top: 12px;
+      padding: 12px 14px;
+      background: var(--blue-soft);
+      border-radius: 14px;
+      color: var(--blue);
+      word-break: break-all;
+    }
+    @media (max-width: 900px) {
+      .span-4, .span-5, .span-7, .span-8, .span-12 { grid-column: span 12; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>Admin Result Manager</h1>
+      <p>Use this page to review live vote counts, inspect the audit log, and publish the final result for public display.</p>
+    </section>
+
+    <section class="grid">
+      <article class="card span-4">
+        <h2>Summary</h2>
+        <div class="grid" style="gap:12px">
+          <div class="stat span-12">
+            <div class="stat-num" id="total-votes">0</div>
+            <div class="muted">Total votes</div>
+          </div>
+          <div class="stat span-12">
+            <div class="stat-num" id="leading-code">-</div>
+            <div class="muted">Leading candidate</div>
+          </div>
+          <div class="stat span-12">
+            <div class="stat-num" id="audit-count">0</div>
+            <div class="muted">Audit entries</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card span-8">
+        <h2>Live Results</h2>
+        <div class="toolbar">
+          <button onclick="loadDashboard()">Refresh results</button>
+          <button class="secondary" onclick="window.open('/published.html', '_blank')">Open public page</button>
+          <button class="warn" onclick="resetDemo()">Reset demo</button>
+        </div>
+        <div class="bars" id="result-bars"></div>
+      </article>
+
+      <article class="card span-7">
+        <h2>Audit Log</h2>
+        <div style="overflow:auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Booth</th>
+                <th>Vote ID</th>
+                <th>Candidate</th>
+                <th>Device</th>
+                <th>Time</th>
+                <th>Tx ID</th>
+              </tr>
+            </thead>
+            <tbody id="audit-table"></tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="card span-5">
+        <h2>Publish Results</h2>
+        <div class="publish-box">
+          <label for="publish-note" class="muted">Admin note</label>
+          <textarea id="publish-note" placeholder="Example: Final booth count verified and approved by election officer."></textarea>
+          <div class="toolbar" style="margin-top:12px;margin-bottom:0">
+            <button onclick="publishResults()">Publish now</button>
+          </div>
+          <div id="publish-status" class="status"></div>
+          <div id="publish-link" class="link-box" style="display:none"></div>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <script>
+    async function fetchJson(url, options) {
+      const response = await fetch(url, options);
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || "Request failed");
+      }
+      return data;
+    }
+
+    function renderBars(results) {
+      const root = document.getElementById("result-bars");
+      const total = results.totalVotes || 0;
+      root.innerHTML = results.candidates.map((candidate) => {
+        const percentage = total ? Math.round((candidate.votes / total) * 100) : 0;
+        return `
+          <div class="bar-card">
+            <div class="bar-head">
+              <span>${candidate.name || "Candidate " + candidate.code}</span>
+              <span>${candidate.votes} votes • ${percentage}%</span>
+            </div>
+            <div class="track">
+              <div class="fill" style="width:${percentage}%"></div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderAudit(entries) {
+      const root = document.getElementById("audit-table");
+      root.innerHTML = entries.map((entry) => `
+        <tr>
+          <td>${entry.boothId}</td>
+          <td>${entry.voteId}</td>
+          <td>${entry.candidate}</td>
+          <td>${entry.device}</td>
+          <td>${new Date(entry.timestamp).toLocaleString()}</td>
+          <td>${entry.txId}</td>
+        </tr>
+      `).join("");
+    }
+
+    async function loadDashboard() {
+      try {
+        const [results, audit] = await Promise.all([
+          fetchJson("/api/results"),
+          fetchJson("/api/audit")
+        ]);
+
+        document.getElementById("total-votes").textContent = results.totalVotes;
+        document.getElementById("audit-count").textContent = audit.entries.length;
+
+        const leader = results.leadingCandidate;
+        document.getElementById("leading-code").textContent = leader ? leader.code : "-";
+
+        renderBars(results);
+        renderAudit(audit.entries.slice().reverse());
+      } catch (error) {
+        showStatus("publish-status", error.message, true);
+      }
+    }
+
+    async function publishResults() {
+      try {
+        const note = document.getElementById("publish-note").value.trim();
+        const data = await fetchJson("/api/publish", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ note })
+        });
+
+        const publicUrl = `${window.location.origin}/published.html`;
+        showStatus("publish-status", `Published at ${new Date(data.publishedResults.publishedAt).toLocaleString()}`, false);
+
+        const link = document.getElementById("publish-link");
+        link.style.display = "block";
+        link.innerHTML = `Public result page: <a href="${publicUrl}" target="_blank">${publicUrl}</a>`;
+
+        await loadDashboard();
+      } catch (error) {
+        showStatus("publish-status", error.message, true);
+      }
+    }
+
+    async function resetDemo() {
+      try {
+        await fetchJson("/api/reset", { method: "POST" });
+        document.getElementById("publish-link").style.display = "none";
+        showStatus("publish-status", "Demo state reset successfully", false);
+        await loadDashboard();
+      } catch (error) {
+        showStatus("publish-status", error.message, true);
+      }
+    }
+
+    function showStatus(id, message, isError) {
+      const box = document.getElementById(id);
+      box.textContent = message;
+      box.className = `status ${isError ? "error" : "success"}`;
+    }
+
+    loadDashboard();
+    setInterval(loadDashboard, 5000);
+  </script>
+</body>
+</html>

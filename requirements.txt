@@ -1,0 +1,27 @@
+# ==========================================
+# SYSTEM & HARDWARE REQUIREMENTS
+# ==========================================
+
+# 1. ARDUINO LIBRARIES (Built-in via Board Managers)
+# For Arduino MEGA 2560
+LiquidCrystal       (Standard Arduino Library - Pre-installed in Arduino IDE)
+
+# For ESP32 DevKit V1
+# You must install the "ESP32 by Espressif Systems" Board Manager in Arduino IDE
+WiFi                (Included in ESP32 Core)
+HTTPClient          (Included in ESP32 Core)
+Preferences         (Included in ESP32 Core)
+
+# ==========================================
+# SOFTWARE BACKEND REQUIREMENTS (Node.js)
+# ==========================================
+# The backend is built with Node.js and requires `npm`. 
+# To install these automatically, run `npm install` inside the `software_backend` directory.
+
+express             (^4.21.2) - Web framework for our REST API
+cors                (^2.8.5)  - Middleware to allow cross-origin requests
+ethers              (^6.13.0) - Library for interacting with the Ethereum Smart Contracts
+
+# Development / Blockchain Emulation Dependencies:
+hardhat                       - Ethereum development environment
+@nomicfoundation/hardhat-toolbox - Plugins for Hardhat node emulation
