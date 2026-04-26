@@ -18,10 +18,12 @@ contract Voting {
         candidates["A"] = Candidate("Candidate A", 0);
         candidates["B"] = Candidate("Candidate B", 0);
         candidates["C"] = Candidate("Candidate C", 0);
+        candidates["D"] = Candidate("Candidate D", 0);
 
         candidateCodes.push("A");
         candidateCodes.push("B");
         candidateCodes.push("C");
+        candidateCodes.push("D");
     }
 
     modifier onlyOwner() {

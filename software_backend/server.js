@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-const allowedCandidates = new Set(["A", "B", "C"]);
+const allowedCandidates = new Set(["A", "B", "C", "D"]);
 
 // ── Blockchain setup ─────────────────────────────────────────
 let votingContract = null;
@@ -37,7 +37,8 @@ const state = {
   votes: {
     A: 0,
     B: 0,
-    C: 0
+    C: 0,
+    D: 0
   },
   processedVoteIds: new Set(),
   auditLog: [],
@@ -58,7 +59,8 @@ function buildResultsSnapshot() {
   const candidates = [
     { code: "A", name: "Candidate A", votes: state.votes.A },
     { code: "B", name: "Candidate B", votes: state.votes.B },
-    { code: "C", name: "Candidate C", votes: state.votes.C }
+    { code: "C", name: "Candidate C", votes: state.votes.C },
+    { code: "D", name: "Candidate D", votes: state.votes.D }
   ];
 
   const totalVotes = candidates.reduce((sum, item) => sum + item.votes, 0);
@@ -204,6 +206,7 @@ app.post("/api/reset", (req, res) => {
   state.votes.A = 0;
   state.votes.B = 0;
   state.votes.C = 0;
+  state.votes.D = 0;
   state.processedVoteIds.clear();
   state.auditLog.length = 0;
   state.publishedResults = null;

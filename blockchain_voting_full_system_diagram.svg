@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 920" width="1200" height="920" role="img" aria-labelledby="title desc">
-  <title id="title">Blockchain Voting System using Arduino Mega, NodeMCU ESP8266, Push Buttons, and LCD</title>
-  <desc id="desc">Updated system diagram with no fingerprint module. Arduino Mega reads push buttons and controls the LCD, while NodeMCU sends vote data to backend and blockchain over Wi-Fi.</desc>
+  <title id="title">Blockchain Voting System using Arduino Uno, ESP32 DevKit V1, 4 Push Buttons, and I2C LCD</title>
+  <desc id="desc">Arduino Uno reads 4 candidate push buttons and controls the I2C LCD, communicates with ESP32 DevKit V1 via SoftwareSerial/Serial2, which sends vote data to backend and blockchain over Wi-Fi.</desc>
 
   <defs>
     <style>
@@ -33,7 +33,7 @@
   <rect class="bg" x="0" y="0" width="1200" height="920" rx="24"/>
 
   <text x="600" y="52" text-anchor="middle" class="title">Blockchain Voting Project</text>
-  <text x="600" y="82" text-anchor="middle" class="subtitle">Arduino Mega + ESP8266 NodeMCU + Push Buttons + 16x2 I2C LCD</text>
+  <text x="600" y="82" text-anchor="middle" class="subtitle">Arduino Uno + ESP32 DevKit V1 + 4 Push Buttons + 16x2 I2C LCD</text>
 
   <line x1="70" y1="180" x2="1130" y2="180" class="divider"/>
   <line x1="70" y1="390" x2="1130" y2="390" class="divider"/>
@@ -53,8 +53,8 @@
 
   <rect x="280" y="210" width="210" height="90" class="node hardware"/>
   <text x="385" y="245" text-anchor="middle" class="box-title">Push Buttons</text>
-  <text x="385" y="270" text-anchor="middle" class="box-text">Vote A, Vote B, Vote C, Confirm</text>
-  <text x="385" y="290" text-anchor="middle" class="small">Digital inputs to Arduino Mega</text>
+  <text x="385" y="270" text-anchor="middle" class="box-text">Vote A, Vote B, Vote C, Vote D</text>
+  <text x="385" y="290" text-anchor="middle" class="small">Digital inputs to Arduino Uno (pins 2,3,4,5)</text>
 
   <rect x="520" y="210" width="210" height="90" class="node hardware"/>
   <text x="625" y="245" text-anchor="middle" class="box-title">16x2 I2C LCD</text>
@@ -62,14 +62,14 @@
   <text x="625" y="290" text-anchor="middle" class="small">SDA, SCL, VCC, GND</text>
 
   <rect x="760" y="210" width="180" height="90" class="node control"/>
-  <text x="850" y="245" text-anchor="middle" class="box-title">Arduino Mega</text>
+  <text x="850" y="245" text-anchor="middle" class="box-title">Arduino Uno</text>
   <text x="850" y="270" text-anchor="middle" class="box-text">Reads buttons and controls LCD</text>
   <text x="850" y="290" text-anchor="middle" class="small">Main voting logic</text>
 
   <rect x="970" y="210" width="150" height="90" class="node network"/>
-  <text x="1045" y="245" text-anchor="middle" class="box-title">NodeMCU</text>
-  <text x="1045" y="270" text-anchor="middle" class="box-text">ESP8266 Wi-Fi bridge</text>
-  <text x="1045" y="290" text-anchor="middle" class="small">Serial link with Mega</text>
+  <text x="1045" y="245" text-anchor="middle" class="box-title">ESP32 DevKit V1</text>
+  <text x="1045" y="270" text-anchor="middle" class="box-text">ESP32 Wi-Fi bridge</text>
+  <text x="1045" y="290" text-anchor="middle" class="small">Serial2 (GPIO16/17) ↔ Uno SoftwareSerial</text>
 
   <path d="M240 255 L280 255" class="line"/>
   <path d="M490 255 L520 255" class="line"/>
@@ -77,16 +77,16 @@
   <path d="M940 255 L970 255" class="line"/>
 
   <rect x="140" y="430" width="250" height="110" class="node control"/>
-  <text x="265" y="465" text-anchor="middle" class="box-title">Mega Firmware</text>
-  <text x="265" y="490" text-anchor="middle" class="box-text">Debounce push buttons</text>
-  <text x="265" y="512" text-anchor="middle" class="box-text">Show menu and selected candidate on LCD</text>
-  <text x="265" y="534" text-anchor="middle" class="small">Send confirmed vote to NodeMCU using Serial1</text>
+  <text x="265" y="465" text-anchor="middle" class="box-title">Uno Firmware</text>
+  <text x="265" y="490" text-anchor="middle" class="box-text">Debounce 4 push buttons</text>
+  <text x="265" y="512" text-anchor="middle" class="box-text">Show candidate and vote status on I2C LCD</text>
+  <text x="265" y="534" text-anchor="middle" class="small">Send vote to ESP8266 via SoftwareSerial (pins 10,11)</text>
 
   <rect x="470" y="430" width="250" height="110" class="node network"/>
-  <text x="595" y="465" text-anchor="middle" class="box-title">NodeMCU Firmware</text>
+  <text x="595" y="465" text-anchor="middle" class="box-title">ESP32 Firmware</text>
   <text x="595" y="490" text-anchor="middle" class="box-text">Connect to Wi-Fi hotspot/router</text>
   <text x="595" y="512" text-anchor="middle" class="box-text">Send HTTP request with voter and candidate data</text>
-  <text x="595" y="534" text-anchor="middle" class="small">Return SUCCESS or FAIL to Mega</text>
+  <text x="595" y="534" text-anchor="middle" class="small">Return SUCCESS or FAIL to Uno via Serial2</text>
 
   <rect x="800" y="430" width="250" height="110" class="node result"/>
   <text x="925" y="465" text-anchor="middle" class="box-title">LCD Messages</text>
@@ -133,5 +133,5 @@
   <text x="945" y="860" class="small">Result can also be shown in web dashboard</text>
 
   <text x="95" y="840" class="small">Vote flow:</text>
-  <text x="95" y="862" class="small">Push button -> Mega -> NodeMCU -> Backend -> Blockchain -> Success on LCD</text>
+  <text x="95" y="862" class="small">Push button (A/B/C/D) → Uno → ESP32 (SoftwareSerial/Serial2) → Backend → Blockchain → Success on LCD</text>
 </svg>
